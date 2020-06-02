@@ -1,4 +1,6 @@
+import accesorios.*
 import bicis.*
+
 
 object deposito {
 	
@@ -17,7 +19,7 @@ object deposito {
 	method bicisCompas(bici) { bicis.remove(bici) 
 		return bicis.filter( { cadaBici => cadaBici.esCompaDe(bici)})}
 		
-	method hayCompaneras() {  bicis.forEach( {cadaBici => cadaBici.bicisCompas(bicis.get(bicis.size()-1))})}
+	//method hayCompaneras() {  bicis.forEach( {cadaBici => cadaBici.bicisCompas(bicis.get(bicis.size()-1))})}
 	
 
 }

@@ -1,6 +1,96 @@
+import accesorios.*
+import bicis.*
+import deposito.*
 
-test "testX" {
+test "testDeposito" {
+	
+	
 
-	assert.that(true)
+	const bici1 = new Bici()
 
+bici1.rodado(28)
+bici1.largo(150)
+bici1.marca("Olmo")
+bici1.accesorios().add(farolito)
+
+	assert.equals(85, bici1.altura())
+	assert.equals(34, bici1.velocidadDeCrucero())
+	assert.equals(0, bici1.carga())
+	assert.equals(14.5, bici1.peso())
+	assert.that(bici1.tieneLuz())
+	assert.equals(1, bici1.accesoriosLivianos())
+	
+
+const bici2 = new Bici()
+bici2.rodado(26)
+bici2.largo(110)
+bici2.marca("Legnano")
+bici2.accesorios().add(farolito)
+const canasto1 = new Canasto()
+bici2.accesorios().add(canasto1)
+canasto1.volumen(8)
+const morral1 = new MorralDeBici()
+bici2.accesorios().add(morral1)
+morral1.largo(21)
+
+
+const bici3 = new Bici()
+bici3.rodado(20)
+bici3.largo(90)
+bici3.marca("Legnano")
+const morral2 = new MorralDeBici()
+bici3.accesorios().add(morral2)
+morral2.largo(6)
+morral2.tieneOjoGato(false)
+
+	//////////////    DEPOSITO
+	
+deposito.bicis().add(bici1)
+deposito.bicis().add(bici2)
+deposito.bicis().add(bici3)
+
+	assert.equals([bici1,bici2], deposito.bicisRapidas())
+	assert.equals(["Legnano","Olmo"], deposito.marcas()) /* en este tuve que invertir el
+	 * valor de la respuesta sugerida : "...marcas son "Olmo" y "Legnano".
+	 */
+	assert.that(not deposito.depositoNocturno())
+	assert.that(deposito.tieneBiciParaLlevar(10))
+	assert.that(not deposito.tieneBiciParaLlevar(50))
+deposito.bicis().remove(bici3)
+	assert.that(deposito.depositoNocturno())
+	
+	/////////////// Test  3 
+	
+	assert.equals( "Olmo", deposito.marcaMasRapida() )
+	assert.equals( 0 , deposito.cargaBicisLargas() )
+	
+const bici5 = new Bici()
+
+bici5.rodado(20)
+bici5.largo(175)
+bici5.marca("Legnano")
+
+deposito.bicis().add(bici5)
+
+	assert.equals( 0 , deposito.cargaBicisLargas() )
+bici5.accesorios().add(morral2)	
+	assert.equals( 0 , deposito.bicisSinAccesorios() )
+	assert.equals( 2 , deposito.cargaBicisLargas() )
+	
+	
+const bici4 = new Bici()
+
+bici4.rodado(20)
+bici4.largo(115)
+bici4.marca("Legnano")
+
+deposito.bicis().add(bici4)
+
+assert.equals( 1 , deposito.bicisSinAccesorios() )
+	
+		/////////////// Test  4
+	
+	
+	assert.equals([bici2] , deposito.bicisCompas(bici4) )
+	
 }
